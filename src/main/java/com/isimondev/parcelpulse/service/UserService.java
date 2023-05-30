@@ -13,7 +13,13 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
+  // create a new user in database during signup
   public User createUser(User user) {
     return userRepository.save(user);
+  }
+
+  // fetch the user from the database during the login
+  public User findByUsername(String username) {
+    return userRepository.findByUsername(username);
   }
 }
