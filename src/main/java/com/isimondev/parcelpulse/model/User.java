@@ -1,6 +1,9 @@
 package com.isimondev.parcelpulse.model;
 
 import jakarta.persistence.*;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity // indicate that this class is a JPA entity
 @Table(name = "users") // table this entity maps to
@@ -19,6 +22,10 @@ public class User {
 
   @Column(nullable = false, unique = true) // properties of the column
   private String email;
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @JsonManagedReference
+  private List<Parcel> parcels;
 
   // Getter and Setter methods
   public String getUsername() {
@@ -44,5 +51,13 @@ public class User {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public List<Parcel> getParcels() {
+    return parcels;
+  }
+
+  public void setParcels(List<Parcel> parcels) {
+    this.parcels = parcels;
   }
 }
